@@ -1,0 +1,9 @@
+micronaut:
+  application:
+    name: jamrooms
+r2dbc:
+  datasources:
+    default:
+      schema-generate: CREATE_DROP
+      dialect: POSTGRES
+      db-type: postgres
