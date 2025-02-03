@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.9.25-1.0.20"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.4.4"
+    id("io.micronaut.test-resources") version "4.4.4"
     id("io.micronaut.aot") version "4.4.4"
 }
 
@@ -25,6 +26,19 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // Manually added dependencies ----------------------------------
+    // Kotlin coroutines -> allows use of the suspend instead of reactive programming
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+
+    // Dependencies for r2dbc with postgres
+    ksp("io.micronaut.data:micronaut-data-processor")
+    runtimeOnly("org.postgresql:r2dbc-postgresql")
+    implementation("io.micronaut.data:micronaut-data-r2dbc")
+    testResourcesService("org.postgresql:postgresql")
+
+    // Use application.yml instead of application.properties
+    runtimeOnly("org.yaml:snakeyaml")
 }
 
 
