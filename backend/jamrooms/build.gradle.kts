@@ -28,8 +28,10 @@ dependencies {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
 
     // Manually added dependencies ----------------------------------
-    // Kotlin coroutines -> allows use of the suspend instead of reactive programming
+    // Kotlin coroutines -> allows use of suspend functions instead of reactive programming
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    // CoroutineCrudRepo generates some methods with reactive style returns so this is helpful to handle those
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
 
     // Dependencies for r2dbc with postgres
     ksp("io.micronaut.data:micronaut-data-processor")
