@@ -1,5 +1,7 @@
-package com.kiran
+package com.kiran.services
 
+import com.kiran.httpclients.SpotifyAuthClient
+import com.kiran.httpclients.SpotifyTokenResponse
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.uri.UriBuilder
 import jakarta.inject.Singleton

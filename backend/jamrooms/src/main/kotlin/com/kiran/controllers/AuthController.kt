@@ -1,5 +1,6 @@
-package com.kiran
+package com.kiran.controllers
 
+import com.kiran.services.AuthService
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get

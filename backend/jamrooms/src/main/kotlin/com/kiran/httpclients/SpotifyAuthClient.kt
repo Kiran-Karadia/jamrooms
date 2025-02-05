@@ -1,4 +1,4 @@
-package com.kiran
+package com.kiran.httpclients
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import io.micronaut.http.HttpHeaders
