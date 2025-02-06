@@ -1,7 +1,7 @@
 package com.kiran.services
 
+import com.kiran.dtos.responses.spotfyauth.SpotifyTokenResponse
 import com.kiran.httpclients.SpotifyAuthClient
-import com.kiran.httpclients.SpotifyTokenResponse
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.uri.UriBuilder
 import jakarta.inject.Singleton
@@ -10,7 +10,7 @@ import java.util.*
 
 @Singleton
 class AuthService(
-    private val spotifyClient: SpotifyAuthClient
+    private val spotifyAuthClient: SpotifyAuthClient
 ) {
 
     @Value("\${spotify.client-secret}")
@@ -40,7 +40,7 @@ class AuthService(
             "redirect_uri" to "http://localhost:8080/auth/callback"
         )
 
-        val getTokenResponse = spotifyClient.getAccessToken(getAuthHeader(), tokenRequestBody)
+        val getTokenResponse = spotifyAuthClient.getAccessToken(getAuthHeader(), tokenRequestBody)
         return getTokenResponse
     }
 
