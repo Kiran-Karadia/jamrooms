@@ -2,15 +2,19 @@ package com.kiran.services
 
 import com.kiran.dtos.responses.spotfyauth.SpotifyTokenResponse
 import com.kiran.httpclients.SpotifyAuthClient
+import com.kiran.repositories.SpotifyToken
+import com.kiran.repositories.SpotifyTokenRepository
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.uri.UriBuilder
 import jakarta.inject.Singleton
+import kotlinx.coroutines.flow.toList
 import java.net.URI
 import java.util.*
 
 @Singleton
 class AuthService(
-    private val spotifyAuthClient: SpotifyAuthClient
+    private val spotifyAuthClient: SpotifyAuthClient,
+    private val spotifyTokenRepository: SpotifyTokenRepository,
 ) {
 
     @Value("\${spotify.client-secret}")
@@ -48,5 +52,21 @@ class AuthService(
         val clientIdAndSecret = "$clientId:$clientSecret"
         val encodedClientIdAndSecret = Base64.getEncoder().encodeToString(clientIdAndSecret.toByteArray())
         return "Basic $encodedClientIdAndSecret"
+    }
+
+    suspend fun saveToken() {
+        val token = SpotifyToken(
+            userId = "Kiran",
+            accessToken = "accessToken",
+            refreshToken = "refreshToken",
+            tokenType = "Bearer",
+            expiresIn = 3600
+        )
+
+        spotifyTokenRepository.save(token)
+    }
+
+    suspend fun getAllTokens(): List<SpotifyToken> {
+        return spotifyTokenRepository.findAll().toList()
     }
 }

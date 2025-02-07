@@ -7,4 +7,5 @@ import jakarta.inject.Singleton
 class SpotifyApiService(
     private val spotifyApiClient: SpotifyApiClient,
 ) {
+
 }
