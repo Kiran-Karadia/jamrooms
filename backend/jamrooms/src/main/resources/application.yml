@@ -1,6 +1,9 @@
 micronaut:
   application:
     name: jamrooms
+  http:
+    client:
+      http-version: 1.1
 r2dbc:
   datasources:
     default:
@@ -11,3 +14,6 @@ r2dbc:
 spotify:
   client-id: ${SPOTIFY_CLIENT_ID}
   client-secret: ${SPOTIFY_CLIENT_SECRET}
+  client-urls:
+    api: "https://api.spotify.com"
+    auth: "https://accounts.spotify.com"
