@@ -1,8 +1,8 @@
 package com.kiran.services
 
 import com.kiran.dtos.responses.spotfyauth.SpotifyTokenResponse
+import com.kiran.entities.SpotifyToken
 import com.kiran.httpclients.SpotifyAuthClient
-import com.kiran.repositories.SpotifyToken
 import com.kiran.repositories.SpotifyTokenRepository
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.uri.UriBuilder
@@ -45,6 +45,16 @@ class AuthService(
         )
 
         val getTokenResponse = spotifyAuthClient.getAccessToken(getAuthHeader(), tokenRequestBody)
+
+        val spotifyToken = SpotifyToken(
+            userId = "KwKiran",
+            accessToken = getTokenResponse.accessToken,
+            refreshToken = getTokenResponse.refreshToken,
+            tokenType = getTokenResponse.tokenType,
+            expiresIn = getTokenResponse.expiresIn
+        )
+        spotifyTokenRepository.save(spotifyToken)
+
         return getTokenResponse
     }
 
@@ -52,18 +62,6 @@ class AuthService(
         val clientIdAndSecret = "$clientId:$clientSecret"
         val encodedClientIdAndSecret = Base64.getEncoder().encodeToString(clientIdAndSecret.toByteArray())
         return "Basic $encodedClientIdAndSecret"
-    }
-
-    suspend fun saveToken() {
-        val token = SpotifyToken(
-            userId = "Kiran",
-            accessToken = "accessToken",
-            refreshToken = "refreshToken",
-            tokenType = "Bearer",
-            expiresIn = 3600
-        )
-
-        spotifyTokenRepository.save(token)
     }
 
     suspend fun getAllTokens(): List<SpotifyToken> {

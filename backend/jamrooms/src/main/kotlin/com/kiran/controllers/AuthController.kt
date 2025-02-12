@@ -1,6 +1,6 @@
 package com.kiran.controllers
 
-import com.kiran.repositories.SpotifyToken
+import com.kiran.entities.SpotifyToken
 import com.kiran.services.AuthService
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
@@ -26,12 +26,7 @@ class AuthController(
         return HttpResponse.ok(tokenResponse)
     }
 
-    @Get("/token")
-    suspend fun saveToken(): HttpResponse<String> {
-        authService.saveToken()
-        return HttpResponse.ok()
-    }
-
+    // Just for testing
     @Get("/allTokens")
     suspend fun getAllTokens(): HttpResponse<List<SpotifyToken>> {
         return HttpResponse.ok(
