@@ -1,10 +1,10 @@
 package com.kiran.services
 
+import com.kiran.configs.SpotifyConfig
 import com.kiran.dtos.responses.spotfyauth.SpotifyTokenResponse
 import com.kiran.entities.SpotifyToken
 import com.kiran.httpclients.SpotifyAuthClient
 import com.kiran.repositories.SpotifyTokenRepository
-import io.micronaut.context.annotation.Value
 import io.micronaut.http.uri.UriBuilder
 import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.toList
@@ -15,17 +15,12 @@ import java.util.*
 class AuthService(
     private val spotifyAuthClient: SpotifyAuthClient,
     private val spotifyTokenRepository: SpotifyTokenRepository,
+    private val spotifyConfig: SpotifyConfig,
 ) {
 
-    @Value("\${spotify.client-secret}")
-    lateinit var clientSecret: String
-
-    @Value("\${spotify.client-id}")
-    lateinit var clientId: String
-
     fun getAuthorizationUrl(): URI {
-        val authRequest = UriBuilder.of("https://accounts.spotify.com/authorize")
-            .queryParam("client_id", clientId)
+        val authRequest = UriBuilder.of(spotifyConfig.urls.auth)
+            .queryParam("client_id", spotifyConfig.clientId)
             .queryParam("response_type", "code")
             .queryParam("redirect_uri", "http://localhost:8080/auth/callback")
             .queryParam("show_dialog", "false")
@@ -59,7 +54,7 @@ class AuthService(
     }
 
     private fun getAuthHeader(): String {
-        val clientIdAndSecret = "$clientId:$clientSecret"
+        val clientIdAndSecret = "${spotifyConfig.clientId}:${spotifyConfig.clientSecret}"
         val encodedClientIdAndSecret = Base64.getEncoder().encodeToString(clientIdAndSecret.toByteArray())
         return "Basic $encodedClientIdAndSecret"
     }
