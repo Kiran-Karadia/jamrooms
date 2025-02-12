@@ -4,6 +4,7 @@ import com.kiran.dtos.responses.spotifyapi.AvailableDevicesResponse
 import com.kiran.dtos.responses.spotifyapi.CurrentUserProfileResponse
 import com.kiran.dtos.responses.spotifyapi.PlaybackStateResponse
 import io.micronaut.http.HttpHeaders
+import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Header
 import io.micronaut.http.annotation.Put
@@ -17,7 +18,7 @@ interface SpotifyApiClient {
         @Header(HttpHeaders.AUTHORIZATION) auth: String
     ): CurrentUserProfileResponse
 
-    @Get("/v1/player/devices")
+    @Get("/v1/me/player/devices")
     suspend fun getAvailableDevices(
         @Header(HttpHeaders.AUTHORIZATION) auth: String
     ): AvailableDevicesResponse
@@ -36,5 +37,10 @@ interface SpotifyApiClient {
     @Put("/v1/me/player/play")
     suspend fun startOrResumePlayback(
         @Header(HttpHeaders.AUTHORIZATION) auth: String
-    )
+    ): HttpResponse<*>
+
+    @Put("/v1/me/player/pause")
+    suspend fun pauserPlayback(
+        @Header(HttpHeaders.AUTHORIZATION) auth: String
+    ): HttpResponse<*>
 }
