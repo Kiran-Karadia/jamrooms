@@ -1,9 +1,6 @@
-package com.kiran.repositories
+package com.kiran.entities
 
 import io.micronaut.data.annotation.*
-import io.micronaut.data.model.query.builder.sql.Dialect
-import io.micronaut.data.r2dbc.annotation.R2dbcRepository
-import io.micronaut.data.repository.kotlin.CoroutineCrudRepository
 import io.micronaut.serde.annotation.Serdeable
 import java.time.Instant
 
@@ -30,9 +27,3 @@ data class SpotifyToken(
 
     var expiresIn: Int
 )
-
-@R2dbcRepository(dialect = Dialect.POSTGRES)
-interface SpotifyTokenRepository: CoroutineCrudRepository<SpotifyToken, Long> {
-
-}
-
