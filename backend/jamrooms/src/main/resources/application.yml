@@ -16,9 +16,11 @@ r2dbc:
       dialect: POSTGRES
       db-type: postgres
 
-spotify:
-  client-id: ${SPOTIFY_CLIENT_ID}
-  client-secret: ${SPOTIFY_CLIENT_SECRET}
-  urls:
-    api: "https://api.spotify.com"
-    auth: "https://accounts.spotify.com"
+app:
+  spotify:
+    client-id: ${SPOTIFY_CLIENT_ID}
+    client-secret: ${SPOTIFY_CLIENT_SECRET}
+    urls:
+      api: "https://api.spotify.com"
+      auth: "https://accounts.spotify.com"
+  redirect-url: "http://localhost:8080/auth/callback"

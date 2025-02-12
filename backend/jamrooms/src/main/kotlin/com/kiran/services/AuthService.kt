@@ -1,6 +1,6 @@
 package com.kiran.services
 
-import com.kiran.configs.SpotifyConfig
+import com.kiran.configs.AppConfig
 import com.kiran.dtos.responses.spotfyauth.SpotifyTokenResponse
 import com.kiran.entities.SpotifyToken
 import com.kiran.httpclients.SpotifyAuthClient
@@ -15,14 +15,14 @@ import java.util.*
 class AuthService(
     private val spotifyAuthClient: SpotifyAuthClient,
     private val spotifyTokenRepository: SpotifyTokenRepository,
-    private val spotifyConfig: SpotifyConfig,
+    private val appConfig: AppConfig,
 ) {
 
     fun getAuthorizationUrl(): URI {
-        val authRequest = UriBuilder.of(spotifyConfig.urls.auth)
-            .queryParam("client_id", spotifyConfig.clientId)
+        val authRequest = UriBuilder.of(appConfig.spotify.urls.auth)
+            .queryParam("client_id", appConfig.spotify.clientId)
             .queryParam("response_type", "code")
-            .queryParam("redirect_uri", "http://localhost:8080/auth/callback")
+            .queryParam("redirect_uri", appConfig.redirectUrl)
             .queryParam("show_dialog", "false")
             .queryParam("state", "some state") // TODO: Use this to redirect back to original url?
             .queryParam("scope",
@@ -36,7 +36,7 @@ class AuthService(
         val tokenRequestBody = mapOf(
             "grant_type" to "authorization_code",
             "code" to code,
-            "redirect_uri" to "http://localhost:8080/auth/callback"
+            "redirect_uri" to appConfig.redirectUrl
         )
 
         val getTokenResponse = spotifyAuthClient.getAccessToken(getAuthHeader(), tokenRequestBody)
@@ -54,7 +54,7 @@ class AuthService(
     }
 
     private fun getAuthHeader(): String {
-        val clientIdAndSecret = "${spotifyConfig.clientId}:${spotifyConfig.clientSecret}"
+        val clientIdAndSecret = "${appConfig.spotify.clientId}:${appConfig.spotify.clientSecret}"
         val encodedClientIdAndSecret = Base64.getEncoder().encodeToString(clientIdAndSecret.toByteArray())
         return "Basic $encodedClientIdAndSecret"
     }
