@@ -10,7 +10,7 @@ import io.micronaut.http.annotation.Header
 import io.micronaut.http.annotation.Put
 import io.micronaut.http.client.annotation.Client
 
-@Client("\${spotify.client-urls.api}")
+@Client(id = "spotify-api")
 interface SpotifyApiClient {
 
     @Get("/v1/me")

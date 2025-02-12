@@ -8,7 +8,7 @@ import io.micronaut.http.annotation.Header
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
 
-@Client("\${spotify.client-urls.auth}")
+@Client(id = "spotify-auth")
 @Header(name = HttpHeaders.CONTENT_TYPE, value = MediaType.APPLICATION_FORM_URLENCODED)
 interface SpotifyAuthClient {
 

@@ -4,6 +4,11 @@ micronaut:
   http:
     client:
       http-version: 1.1
+    services:
+      spotify-auth:
+        url: "https://accounts.spotify.com"
+      spotify-api:
+        url: "https://api.spotify.com"
 r2dbc:
   datasources:
     default:
@@ -14,6 +19,6 @@ r2dbc:
 spotify:
   client-id: ${SPOTIFY_CLIENT_ID}
   client-secret: ${SPOTIFY_CLIENT_SECRET}
-  client-urls:
+  urls:
     api: "https://api.spotify.com"
     auth: "https://accounts.spotify.com"
