@@ -16,7 +16,3 @@ Backend:
 
 Frontend:
 - JavaScript with React
-
-
-Development notes:
-Command to run backend in dev mode: `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`

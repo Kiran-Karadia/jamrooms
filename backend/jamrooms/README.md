@@ -37,4 +37,7 @@
 
 - [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#nettyHttpClient)
 
+## Development notes
+Command to run backend in dev mode: `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`
+
 
