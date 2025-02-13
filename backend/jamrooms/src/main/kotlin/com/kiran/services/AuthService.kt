@@ -8,6 +8,7 @@ import com.kiran.repositories.SpotifyTokenRepository
 import io.micronaut.http.uri.UriBuilder
 import jakarta.inject.Singleton
 import kotlinx.coroutines.flow.toList
+import org.slf4j.LoggerFactory
 import java.net.URI
 import java.util.*
 
@@ -17,9 +18,11 @@ class AuthService(
     private val spotifyTokenRepository: SpotifyTokenRepository,
     private val appConfig: AppConfig,
 ) {
+    private val logger = LoggerFactory.getLogger(AuthService::class.java)
 
     fun getAuthorizationUrl(): URI {
-        val authRequest = UriBuilder.of(appConfig.spotify.urls.auth)
+        logger.info("getAuthorizationUrl called...")
+        val authRequest = UriBuilder.of("${appConfig.spotify.urls.auth}/authorize")
             .queryParam("client_id", appConfig.spotify.clientId)
             .queryParam("response_type", "code")
             .queryParam("redirect_uri", appConfig.redirectUrl)
@@ -29,6 +32,8 @@ class AuthService(
                 "user-read-playback-state user-modify-playback-state user-read-currently-playing streaming"
             )
             .build()
+        logger.info("appConfig.redirectUrl: ${appConfig.redirectUrl}")
+        logger.info("authRequest: $authRequest")
         return authRequest
     }
 
