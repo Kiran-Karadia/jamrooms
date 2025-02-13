@@ -32,6 +32,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     // CoroutineCrudRepo generates some methods with reactive style returns so this is helpful to handle those
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
     // Dependencies for r2dbc with postgres
     ksp("io.micronaut.data:micronaut-data-processor")
