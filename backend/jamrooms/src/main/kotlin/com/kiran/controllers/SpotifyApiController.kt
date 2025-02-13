@@ -22,29 +22,29 @@ class SpotifyApiController(
     }
     @Get("/my-profile")
     suspend fun getUserProfile(): HttpResponse<CurrentUserProfileResponse> {
-        val userProfile = spotifyApiClient.getCurrentUserProfile(getToken())
+        val userProfile = spotifyApiClient.getCurrentUserProfile()
         return ok(userProfile)
     }
 
     @Get("/devices")
     suspend fun getDevices(): HttpResponse<AvailableDevicesResponse> {
-        val devices = spotifyApiClient.getAvailableDevices(getToken())
+        val devices = spotifyApiClient.getAvailableDevices()
         return ok(devices)
     }
 
     @Get("/player")
     suspend fun getPlayer(): HttpResponse<PlaybackStateResponse> {
-        val player = spotifyApiClient.getPlaybackState(getToken())
+        val player = spotifyApiClient.getPlaybackState()
         return ok(player)
     }
 
     @Put("/play")
     suspend fun play(): HttpResponse<*> {
-        return spotifyApiClient.startOrResumePlayback(getToken())
+        return spotifyApiClient.startOrResumePlayback()
     }
 
     @Put("/pause")
     suspend fun pauser(): HttpResponse<*> {
-        return spotifyApiClient.pauserPlayback(getToken())
+        return spotifyApiClient.pauserPlayback()
     }
 }
