@@ -11,7 +11,7 @@ import kotlinx.coroutines.reactor.mono
 import org.reactivestreams.Publisher
 import org.slf4j.LoggerFactory
 
-@Filter("/v1/**")
+@Filter(serviceId = ["spotify-api"])
 class SpotifyApiFilter(
     private val tokenService: TokenService
 ): HttpClientFilter {
