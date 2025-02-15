@@ -5,7 +5,10 @@ import io.micronaut.serde.annotation.Serdeable
 
 @Serdeable
 data class PlaybackStateResponse(
-    val item: Item
+    val item: Item,
+
+    @JsonProperty("is_playing")
+    val isPlaying: Boolean
 )
 
 @Serdeable
