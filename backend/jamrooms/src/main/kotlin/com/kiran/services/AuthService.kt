@@ -4,10 +4,8 @@ import com.kiran.configs.AppConfig
 import com.kiran.dtos.responses.spotfyauth.SpotifyTokenResponse
 import com.kiran.entities.SpotifyToken
 import com.kiran.httpclients.SpotifyAuthClient
-import com.kiran.repositories.SpotifyTokenRepository
 import io.micronaut.http.uri.UriBuilder
 import jakarta.inject.Singleton
-import kotlinx.coroutines.flow.toList
 import org.slf4j.LoggerFactory
 import java.net.URI
 import java.util.*
@@ -15,7 +13,7 @@ import java.util.*
 @Singleton
 class AuthService(
     private val spotifyAuthClient: SpotifyAuthClient,
-    private val spotifyTokenRepository: SpotifyTokenRepository,
+    private val tokenService: TokenService,
     private val appConfig: AppConfig,
 ) {
     private val logger = LoggerFactory.getLogger(AuthService::class.java)
@@ -46,15 +44,15 @@ class AuthService(
 
         val getTokenResponse = spotifyAuthClient.getAccessToken(getAuthHeader(), tokenRequestBody)
 
-        val spotifyToken = SpotifyToken(
-            userId = "KwKiran",
-            accessToken = getTokenResponse.accessToken,
-            refreshToken = getTokenResponse.refreshToken,
-            tokenType = getTokenResponse.tokenType,
-            expiresIn = getTokenResponse.expiresIn
+        tokenService.saveSpotifyToken(
+            SpotifyToken(
+                userId = "KwKiran",
+                accessToken = getTokenResponse.accessToken,
+                refreshToken = getTokenResponse.refreshToken,
+                tokenType = getTokenResponse.tokenType,
+                expiresIn = getTokenResponse.expiresIn
+            )
         )
-        spotifyTokenRepository.save(spotifyToken)
-
         return getTokenResponse
     }
 
@@ -62,9 +60,5 @@ class AuthService(
         val clientIdAndSecret = "${appConfig.spotify.clientId}:${appConfig.spotify.clientSecret}"
         val encodedClientIdAndSecret = Base64.getEncoder().encodeToString(clientIdAndSecret.toByteArray())
         return "Basic $encodedClientIdAndSecret"
-    }
-
-    suspend fun getAllTokens(): List<SpotifyToken> {
-        return spotifyTokenRepository.findAll().toList()
     }
 }
