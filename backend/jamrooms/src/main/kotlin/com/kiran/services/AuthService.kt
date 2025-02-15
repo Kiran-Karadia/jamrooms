@@ -20,7 +20,7 @@ class AuthService(
 
     fun getAuthorizationUrl(): URI {
         logger.info("getAuthorizationUrl called...")
-        val authRequest = UriBuilder.of("${appConfig.spotify.urls.auth}/authorize")
+        val authRequest = UriBuilder.of("${appConfig.spotify.urls.auth}")
             .queryParam("client_id", appConfig.spotify.clientId)
             .queryParam("response_type", "code")
             .queryParam("redirect_uri", appConfig.redirectUrl)

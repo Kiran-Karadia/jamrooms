@@ -22,5 +22,5 @@ app:
     client-secret: ${SPOTIFY_CLIENT_SECRET}
     urls:
       api: "https://api.spotify.com"
-      auth: "https://accounts.spotify.com"
+      auth: "https://accounts.spotify.com/authorize"
   redirect-url: "http://localhost:8080/auth/callback"
