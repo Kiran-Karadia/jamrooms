@@ -40,4 +40,4 @@
 ## Development notes
 Command to run backend in dev mode: `MICRONAUT_ENVIRONMENTS=dev ./gradlew run`
 
-
+To run application through the IDE (IntelliJ community edition), create a `gradle` configuration with the environment variable `MICRONAUT_ENVIRONMENTS=dev`. You can't use default Application configuration because the test resources won't start correctly!
