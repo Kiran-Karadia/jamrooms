@@ -34,6 +34,6 @@ interface SpotifyApiClient {
     ): HttpResponse<*>
 
     @Put("/v1/me/player/pause")
-    suspend fun pauserPlayback(
+    suspend fun pausePlayback(
     ): HttpResponse<*>
 }
