@@ -11,5 +11,25 @@ import java.time.Instant
 @Serdeable
 @MappedEntity
 data class Room(
+    @field:Id
+    @field:GeneratedValue(GeneratedValue.Type.AUTO)
+    var id: Long? = null,
+
+    var hostId: String,
+
+    var roomCode: String? = null,
+
+    @DateCreated
+    var createdAt: Instant? = null,
+
+    // TODO: Add vote feature
+//    var votesToSkip: Int = 1
+
 ) {
+    @PrePersist
+    fun generateRoomCode() {
+        roomCode = (1..6)
+            .map { ('A'..'Z').random() }
+            .joinToString("")
+    }
 }
