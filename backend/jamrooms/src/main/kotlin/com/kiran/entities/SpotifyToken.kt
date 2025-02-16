@@ -7,7 +7,7 @@ import java.time.Instant
 @Serdeable
 @MappedEntity
 data class SpotifyToken(
-    @field:Id
+    @field:Id // Don't really need the `field` bit here, but will keep in for more clarity and understanding
     @field:GeneratedValue(GeneratedValue.Type.AUTO)
     var id: Long? = null,
 
