@@ -7,4 +7,5 @@ import io.micronaut.data.repository.kotlin.CoroutineCrudRepository
 
 @R2dbcRepository(dialect = Dialect.POSTGRES)
 interface RoomRepository: CoroutineCrudRepository<Room, Long> {
+    suspend fun findByRoomCode(roomCode: String): Room?
 }
