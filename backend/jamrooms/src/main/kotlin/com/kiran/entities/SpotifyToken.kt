@@ -25,5 +25,6 @@ data class SpotifyToken(
 
     var tokenType: String,
 
+    // From spotify documentation: The time period (in seconds) for which the access token is valid.
     var expiresIn: Int
 )
