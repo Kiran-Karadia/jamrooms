@@ -7,6 +7,7 @@ import io.micronaut.data.repository.kotlin.CoroutineCrudRepository
 
 @R2dbcRepository(dialect = Dialect.POSTGRES)
 interface SpotifyTokenRepository: CoroutineCrudRepository<SpotifyToken, Long> {
-    suspend fun findByUserId(userId: String = "KwKiran"): SpotifyToken?
+//    suspend fun findByUserId(userId: String = "KwKiran"): SpotifyToken?
+    suspend fun findBySessionId(sessionId: String): SpotifyToken?
 }
 

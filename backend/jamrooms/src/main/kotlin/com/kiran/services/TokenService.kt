@@ -13,8 +13,8 @@ class TokenService(
 
     private val logger = LoggerFactory.getLogger(this.javaClass.simpleName)
 
-    suspend fun getAuthHeaderValue(): String {
-        val spotifyToken = spotifyTokenRepository.findByUserId() ?: throw Exception("Token not found")
+    suspend fun getAuthHeaderValue(sessionId: String): String {
+        val spotifyToken = spotifyTokenRepository.findBySessionId(sessionId) ?: throw Exception("Token not found")
         return "${spotifyToken.tokenType} ${spotifyToken.accessToken}"
     }
 
@@ -22,8 +22,8 @@ class TokenService(
         return spotifyTokenRepository.save(spotifyToken)
     }
 
-    suspend fun isAuthenticated(userId: String): Boolean {
-        val spotifyToken = spotifyTokenRepository.findByUserId(userId) ?: return false
+    suspend fun isAuthenticated(sessionId: String): Boolean {
+        val spotifyToken = spotifyTokenRepository.findBySessionId(sessionId) ?: return false
 
         return Instant.now().isBefore(spotifyToken.updatedAt!!.plusSeconds(spotifyToken.expiresIn.toLong()))
         //TODO: Refresh logic still needed...

@@ -11,7 +11,7 @@ data class SpotifyToken(
     @field:GeneratedValue(GeneratedValue.Type.AUTO)
     var id: Long? = null,
 
-    var userId: String,
+    var sessionId: String,
 
     @DateCreated
     var createdAt: Instant? = null,
