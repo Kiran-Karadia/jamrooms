@@ -19,14 +19,11 @@ class SpotifyApiFilter(
     private val logger = LoggerFactory.getLogger(this.javaClass.simpleName)
 
     override fun doFilter(request: MutableHttpRequest<*>, chain: ClientFilterChain): Publisher<out HttpResponse<*>> {
+        val sessionId = request.headers.get("X-Session-Id").toString()
         // Use mono to handle using a suspend method while having a Publisher return type
         return mono {
-            val token = tokenService.getAuthHeaderValue()
-            logger.info("token: $token")
-            logger.info("Before request: ${request.headers.toList()}")
+            val token = tokenService.getAuthHeaderValue(sessionId)
             request.headers.set("Authorization", token)
-            logger.info("After request: ${request.headers.toList()}")
-            logger.info("Token has been added...")
             chain.proceed(request).awaitSingle()
         }
     }

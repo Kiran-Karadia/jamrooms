@@ -10,26 +10,26 @@ import jakarta.inject.Singleton
 class SpotifyApiService(
     private val spotifyApiClient: SpotifyApiClient,
 ) {
-    suspend fun getUserProfile(): CurrentUserProfileResponse {
-        val currentUserProfileResponse = spotifyApiClient.getCurrentUserProfile()
+    suspend fun getUserProfile(sessionId: String): CurrentUserProfileResponse {
+        val currentUserProfileResponse = spotifyApiClient.getCurrentUserProfile(sessionId)
         return currentUserProfileResponse
     }
 
-    suspend fun getAvailableDevices(): AvailableDevicesResponse {
-        val availableDevicesResponse = spotifyApiClient.getAvailableDevices()
+    suspend fun getAvailableDevices(sessionId: String): AvailableDevicesResponse {
+        val availableDevicesResponse = spotifyApiClient.getAvailableDevices(sessionId)
         return availableDevicesResponse
     }
 
-    suspend fun getPlaybackState(): PlaybackStateResponse {
-        val playbackStateResponse = spotifyApiClient.getPlaybackState()
+    suspend fun getPlaybackState(sessionId: String): PlaybackStateResponse {
+        val playbackStateResponse = spotifyApiClient.getPlaybackState(sessionId)
         return playbackStateResponse
     }
 
-    suspend fun togglePlayback() {
-        val playbackStateResponse = spotifyApiClient.getPlaybackState()
+    suspend fun togglePlayback(sessionId: String) {
+        val playbackStateResponse = spotifyApiClient.getPlaybackState(sessionId)
         when (playbackStateResponse.isPlaying) {
-            true -> spotifyApiClient.pausePlayback()
-            false -> spotifyApiClient.startOrResumePlayback()
+            true -> spotifyApiClient.pausePlayback(sessionId)
+            false -> spotifyApiClient.startOrResumePlayback(sessionId)
         }
     }
 }
