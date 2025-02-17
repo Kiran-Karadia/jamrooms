@@ -2,7 +2,6 @@ package com.kiran.services
 
 import com.kiran.configs.AppConfig
 import com.kiran.dtos.responses.spotfyauth.SpotifyTokenResponse
-import com.kiran.entities.SpotifyToken
 import com.kiran.httpclients.SpotifyAuthClient
 import io.micronaut.http.uri.UriBuilder
 import jakarta.inject.Singleton
@@ -16,7 +15,7 @@ class AuthService(
     private val tokenService: TokenService,
     private val appConfig: AppConfig,
 ) {
-    private val logger = LoggerFactory.getLogger(AuthService::class.java)
+    private val logger = LoggerFactory.getLogger(this.javaClass.simpleName)
 
     fun getAuthorizationUrl(): URI {
         logger.info("getAuthorizationUrl called...")
@@ -44,15 +43,6 @@ class AuthService(
 
         val getTokenResponse = spotifyAuthClient.getAccessToken(getAuthHeader(), tokenRequestBody)
 
-        tokenService.saveSpotifyToken(
-            SpotifyToken(
-                userId = "KwKiran",
-                accessToken = getTokenResponse.accessToken,
-                refreshToken = getTokenResponse.refreshToken,
-                tokenType = getTokenResponse.tokenType,
-                expiresIn = getTokenResponse.expiresIn
-            )
-        )
         return getTokenResponse
     }
 
