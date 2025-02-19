@@ -9,6 +9,14 @@ micronaut:
         url: "https://accounts.spotify.com"
       spotify-api:
         url: "https://api.spotify.com"
+
+# Seems like we're repeating but datasources config is needed as well as r2dbc!
+# Just need one config set during development for testResources to work
+# Other's like url etc are auto configured for now
+datasources:
+  default:
+    db-type: postgres
+
 r2dbc:
   datasources:
     default:
