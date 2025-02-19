@@ -38,7 +38,7 @@ dependencies {
     ksp("io.micronaut.data:micronaut-data-processor")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     implementation("io.micronaut.data:micronaut-data-r2dbc")
-    testResourcesService("org.postgresql:postgresql")
+    testResourcesService("org.postgresql:r2dbc-postgresql")
 
     // Use application.yml instead of application.properties
     runtimeOnly("org.yaml:snakeyaml")
