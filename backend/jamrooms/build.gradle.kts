@@ -34,11 +34,17 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactive")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
+    // Database dependencies
+    implementation("io.micronaut.flyway:micronaut-flyway")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    // We're not using jdbc but these are needed for flyway and
+    runtimeOnly("org.flywaydb:flyway-database-postgresql")
+    runtimeOnly("org.postgresql:postgresql")
+
     // Dependencies for r2dbc with postgres
     ksp("io.micronaut.data:micronaut-data-processor")
     runtimeOnly("org.postgresql:r2dbc-postgresql")
     implementation("io.micronaut.data:micronaut-data-r2dbc")
-    testResourcesService("org.postgresql:r2dbc-postgresql")
 
     // Use application.yml instead of application.properties
     runtimeOnly("org.yaml:snakeyaml")
