@@ -15,15 +15,12 @@ data class Room(
     @field:GeneratedValue(GeneratedValue.Type.AUTO)
     var id: Long? = null,
 
-    var hostId: String,
+    var hostSessionId: String,
 
     var roomCode: String? = null,
 
     @DateCreated
     var createdAt: Instant? = null,
-
-    // TODO: Add vote feature
-//    var votesToSkip: Int = 1
 
 ) {
     @PrePersist
