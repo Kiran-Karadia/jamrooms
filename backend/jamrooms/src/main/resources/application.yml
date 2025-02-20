@@ -10,19 +10,21 @@ micronaut:
       spotify-api:
         url: "https://api.spotify.com"
 
-# Seems like we're repeating but datasources config is needed as well as r2dbc!
-# Just need one config set during development for testResources to work
-# Other's like url etc are auto configured for now
 datasources:
   default:
+    driver-class-name: org.postgresql.Driver
     db-type: postgres
 
 r2dbc:
   datasources:
     default:
-      schema-generate: CREATE_DROP
       dialect: POSTGRES
-      db-type: postgresql
+      db-type: postgres
+
+flyway:
+  datasources:
+    default:
+      enabled: true
 
 app:
   spotify:
